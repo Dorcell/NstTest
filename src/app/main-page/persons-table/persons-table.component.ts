@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from "../shared/api.service";
-import { PersonModel } from "./persons-table.model";
+import { ApiService } from "../../services/api.service";
+import { PersonModel } from "../../models/persons.model";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 @Component({
@@ -14,6 +14,7 @@ export class PersonsTableComponent implements OnInit {
   formValue !: FormGroup;
   personModelObj : PersonModel = new PersonModel();
   personData !: any;
+  @Output() public showAdd = new EventEmitter<boolean>();
   constructor(private formbuilder: FormBuilder, private  api: ApiService) { }
 
   ngOnInit(): void {
@@ -39,8 +40,7 @@ export class PersonsTableComponent implements OnInit {
   }
 
   onEdit(row: any){
-   // this.showAdd = false;
-  //  this.showUpdate = true;
+    this.showAdd.emit(false);
     this.personModelObj.id = row.id;
     this.formValue.controls['firstName'].setValue(row.firstName);
     this.formValue.controls['lastName'].setValue(row.lastName);

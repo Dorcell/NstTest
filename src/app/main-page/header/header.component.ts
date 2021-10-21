@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  public showAdd !: boolean;
-  public showUpdate !: boolean;
+  @Output() public showAdd = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
   clickAddPerson(){
-  //  this.formValue.reset();
-    this.showAdd = true;
-    this.showUpdate = false;
+    this.showAdd.emit(true);
   }
 }

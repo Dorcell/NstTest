@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from "../shared/api.service";
-import { PersonModel } from "../persons-table/persons-table.model";
+import { ApiService } from "../../services/api.service";
+import { PersonModel } from "../../models/persons.model";
 import {Notify} from "notiflix/build/notiflix-notify-aio";
 
 @Component({
@@ -14,6 +14,8 @@ export class PersonModalComponent implements OnInit {
   formValue !: FormGroup;
   personModelObj : PersonModel = new PersonModel();
   personData !: any;
+  @Input() public showAdd !: boolean;
+  @Input() public showUpdate !: boolean;
   constructor(private formbuilder: FormBuilder, private  api: ApiService) { }
 
   ngOnInit(): void {
