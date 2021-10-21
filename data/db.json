@@ -14,6 +14,16 @@
       "id": 5,
       "firstName": "Наташа",
       "lastName": "Каравай"
+    },
+    {
+      "id": 6,
+      "firstName": null,
+      "lastName": null
+    },
+    {
+      "id": 7,
+      "firstName": "sert",
+      "lastName": "sdrg"
     }
   ]
 }
