@@ -1,0 +1,7 @@
+.modal-header{
+  background-color: palegreen;
+}
+.modal-footer{
+  border-top: none;
+  justify-content: center;
+}

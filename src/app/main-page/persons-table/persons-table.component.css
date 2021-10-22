@@ -1,0 +1,32 @@
+.firstname-column{
+  width: 35%;
+}
+.lastname-column{
+  width: 45%;
+}
+.options-column{
+  width: 20%;
+}
+.right{
+  float: right;
+  border-radius: 20px;
+}
+.persons-table{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+table{
+  max-width: 1000px;
+  border-collapse: collapse !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+}
+.table-header{
+  background-color: palegreen;
+}
+.table-row{
+  border-bottom: white solid 2px;
+  background-color: beige;
+}

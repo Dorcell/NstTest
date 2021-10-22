@@ -10,28 +10,28 @@ export class ApiService {
   constructor(private  http : HttpClient) { }
 
   postPerson(data : any){
-    return this.http.post<any>("http://localhost:4200/persons", data)
+    return this.http.post<any>("http://localhost:3000/persons", data)
       .pipe(map((res:any)=>{
         return res;
       }))
   }
 
   getPerson(){
-    return this.http.get<any>("http://localhost:4200/persons")
+    return this.http.get<any>("http://localhost:3000/persons")
       .pipe(map((res:any)=>{
         return res;
       }))
   }
 
   putPerson(data : any, id: number){
-    return this.http.put<any>("http://localhost:4200/persons/" + id, data)
+    return this.http.put<any>("http://localhost:3000/persons/" + id, data)
       .pipe(map((res:any)=>{
         return res;
       }))
   }
 
   deletePerson(id: number){
-    return this.http.delete<any>("http://localhost:4200/persons/"+id)
+    return this.http.delete<any>("http://localhost:3000/persons/"+id)
       .pipe(map((res:any)=>{
         return res;
       }))

@@ -1,0 +1,3 @@
+<app-header (showAdd)="onModalOpen($event)"></app-header>
+<app-persons-table (showAdd)="onModalOpen($event)" (personDetails)="fillDetails($event)"></app-persons-table>
+<app-person-modal [showAdd]="showAdd" [showUpdate]="showUpdate" [person]="personDetails" (refreshTable)="onModalClosed()"></app-person-modal>
