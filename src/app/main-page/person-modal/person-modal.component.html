@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detailsModalLabel">Сотрудник</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearDetails()"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formValue">
@@ -18,7 +18,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="cancel" data-bs-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-secondary" (click)="clearDetails()" id="cancel" data-bs-dismiss="modal">Закрыть</button>
         <button type="button" class="btn btn-success" (click)="postPersonDetails()" *ngIf="showAdd">Добавить</button>
         <button type="button" class="btn btn-success" (click)="updatePersonDetails()" *ngIf="showUpdate">Изменить</button>
       </div>

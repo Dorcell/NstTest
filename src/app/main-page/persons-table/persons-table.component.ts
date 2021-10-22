@@ -1,7 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from "../../services/api.service";
-import { PersonModel } from "../../models/persons.model";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 @Component({
@@ -11,24 +9,23 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 })
 export class PersonsTableComponent implements OnInit {
 
-  formValue !: FormGroup;
-  personModelObj : PersonModel = new PersonModel();
-  personData !: any;
+  public personData !: any;
   @Output() public showAdd = new EventEmitter<boolean>();
-  constructor(private formbuilder: FormBuilder, private  api: ApiService) { }
+  @Output() public personDetails = new EventEmitter<any>();
+  constructor(private  api: ApiService) { }
 
   ngOnInit(): void {
     this.getAllPersons();
   }
 
-  getAllPersons() {
+  public getAllPersons() {
     this.api.getPerson()
       .subscribe(res => {
         this.personData = res;
       })
   }
 
-  deletePerson(row : any) {
+  public deletePerson(row : any) {
     this.api.deletePerson(row.id)
       .subscribe(res => {
           Notify.success('Сотрудник удален');
@@ -39,10 +36,8 @@ export class PersonsTableComponent implements OnInit {
         })
   }
 
-  onEdit(row: any){
+  public onEdit(row: any){
     this.showAdd.emit(false);
-    this.personModelObj.id = row.id;
-    this.formValue.controls['firstName'].setValue(row.firstName);
-    this.formValue.controls['lastName'].setValue(row.lastName);
+    this.personDetails.emit(row);
   }
 }

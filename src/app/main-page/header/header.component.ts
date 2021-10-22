@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clickAddPerson(){
+  public clickAddPerson(){
     this.showAdd.emit(true);
   }
 }

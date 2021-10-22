@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from "../../services/api.service";
 import { PersonModel } from "../../models/persons.model";
-import {Notify} from "notiflix/build/notiflix-notify-aio";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 @Component({
   selector: 'app-person-modal',
@@ -11,11 +11,12 @@ import {Notify} from "notiflix/build/notiflix-notify-aio";
 })
 export class PersonModalComponent implements OnInit {
 
-  formValue !: FormGroup;
-  personModelObj : PersonModel = new PersonModel();
-  personData !: any;
+  public formValue !: FormGroup;
+  private personModelObj = new PersonModel();
   @Input() public showAdd !: boolean;
   @Input() public showUpdate !: boolean;
+  @Input() public person!: PersonModel;
+  @Output() public refreshTable = new EventEmitter<boolean>();
   constructor(private formbuilder: FormBuilder, private  api: ApiService) { }
 
   ngOnInit(): void {
@@ -25,9 +26,16 @@ export class PersonModalComponent implements OnInit {
     })
   }
 
-  postPersonDetails() {
-    this.personModelObj.firstName = this.formValue.value.firstName;
-    this.personModelObj.lastName = this.formValue.value.lastName;
+  public postPersonDetails() {
+    let firstName = this.formValue.value.firstName;
+    let lastName = this.formValue.value.lastName;
+    if (this.isEmptyOrSpaces(firstName) || this.isEmptyOrSpaces(lastName)){
+      Notify.failure("Имя или фамилия не может быть пустым");
+      return;
+    }
+
+    this.personModelObj.firstName = firstName;
+    this.personModelObj.lastName = lastName;
 
     this.api.postPerson(this.personModelObj)
       .subscribe(res => {
@@ -36,16 +44,25 @@ export class PersonModalComponent implements OnInit {
           let ref = document.getElementById('cancel');
           ref?.click();
           this.formValue.reset();
-          this.getAllPersons();
+          this.refreshTable.emit();
         },
         err => {
           Notify.failure("Ошибка!");
         })
   }
 
-  updatePersonDetails() {
-    this.personModelObj.firstName = this.formValue.value.firstName;
-    this.personModelObj.lastName = this.formValue.value.lastName;
+  public updatePersonDetails() {
+    debugger;
+    let firstName = this.formValue.value.firstName;
+    let lastName = this.formValue.value.lastName;
+    if (this.isEmptyOrSpaces(firstName) || this.isEmptyOrSpaces(lastName)){
+      Notify.failure("Имя или фамилия не может быть пустым");
+      return;
+    }
+
+    this.personModelObj.id = this.person.id;
+    this.personModelObj.firstName = firstName;
+    this.personModelObj.lastName = lastName;
 
     this.api.putPerson(this.personModelObj, this.personModelObj.id)
       .subscribe(res => {
@@ -53,17 +70,18 @@ export class PersonModalComponent implements OnInit {
           let ref = document.getElementById('cancel');
           ref?.click();
           this.formValue.reset();
-          this.getAllPersons();
+          this.refreshTable.emit();
         },
         err => {
           Notify.failure("Ошибка!");
         })
   }
 
-  getAllPersons() {
-    this.api.getPerson()
-      .subscribe(res => {
-        this.personData = res;
-      })
+  private isEmptyOrSpaces(row: string): boolean{
+    return row === null || row.match(/^ *$/) !== null;
+  }
+
+  public clearDetails(): void{
+    this.formValue.reset();
   }
 }

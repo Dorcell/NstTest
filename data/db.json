@@ -16,19 +16,19 @@
       "lastName": "Каравай"
     },
     {
-      "id": 6,
-      "firstName": null,
-      "lastName": null
-    },
-    {
       "id": 7,
-      "firstName": "sert",
-      "lastName": "sdrg"
+      "firstName": "Имя",
+      "lastName": "Нормально"
     },
     {
       "id": 8,
-      "firstName": "trr6swet",
-      "lastName": "srtgsrx"
+      "firstName": "Владимир",
+      "lastName": "Сиротин"
+    },
+    {
+      "id": 9,
+      "firstName": "Парень",
+      "lastName": "Тестовый"
     }
   ]
 }
